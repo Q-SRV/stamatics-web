@@ -15,7 +15,7 @@ function App() {
       <header className="navbar">
         <div className="navbar-inner">
 
-          {/* LEFT: LOGO */}
+          {/* LEFT LOGO */}
           <div className="logo">
             <img src={logo} alt="Stamatics Logo" className="logo-image" />
             <div className="logo-text">
@@ -24,10 +24,22 @@ function App() {
             </div>
           </div>
 
-          {/* RIGHT: NAVIGATION LINKS (top-right, bold) */}
+          {/* RIGHT NAVIGATION LINKS WITH DROPDOWN */}
           <nav className="nav-links top-right-nav">
+
             <a href="#who">Who We Are</a>
-            <a href="#competitions">Competitions</a>
+
+            {/* COMPETITIONS DROPDOWN */}
+            <div className="dropdown">
+              <span className="dropdown-label">Competitions ▾</span>
+
+              <div className="dropdown-menu">
+                <a href="#integration">Integration Bee</a>
+                <a href="#mathematica">Mathematica</a>
+                <a href="#mathemania">Mathemania</a>
+              </div>
+            </div>
+
             <a href="#blogs">Blogs</a>
             <a href="#team">Our Team</a>
             <a href="#contact">Contact</a>
@@ -38,7 +50,8 @@ function App() {
 
       {/* MAIN HERO CONTENT */}
       <main className="hero-content">
-        {/* LEFT: MAIN TEXT CENTERED VERTICALLY */}
+
+        {/* LEFT HERO TEXT */}
         <section className="hero-left">
           <h1 className="hero-title">Stamatics IIT Kanpur</h1>
           <p className="hero-subtitle">
@@ -48,23 +61,19 @@ function App() {
           <button className="hero-button">Explore Competitions</button>
         </section>
 
-        {/* RIGHT: LATEST BLOGS */}
+        {/* RIGHT BLOGS PANEL */}
         <section className="hero-right">
           <div className="newsletter-card">
             <h3 className="newsletter-title">Latest Blogs</h3>
 
             <div className="blog-list">
+
               <article className="blog-item">
                 <div className="blog-thumbnail">
-                  <img
-                    src="https://via.placeholder.com/80x60"
-                    alt="Why Problem Solving Competitions Matter"
-                  />
+                  <img src="https://via.placeholder.com/80x60" alt="" />
                 </div>
                 <div className="blog-info">
-                  <h4 className="blog-title">
-                    Why Problem Solving Competitions Matter
-                  </h4>
+                  <h4 className="blog-title">Why Problem Solving Competitions Matter</h4>
                   <p className="blog-meta">Community · 5 min read</p>
                   <button className="blog-link">Read more →</button>
                 </div>
@@ -72,15 +81,10 @@ function App() {
 
               <article className="blog-item">
                 <div className="blog-thumbnail">
-                  <img
-                    src="https://via.placeholder.com/80x60"
-                    alt="A Beginner's Guide to Mathematical Thinking"
-                  />
+                  <img src="https://via.placeholder.com/80x60" alt="" />
                 </div>
                 <div className="blog-info">
-                  <h4 className="blog-title">
-                    A Beginner&apos;s Guide to Mathematical Thinking
-                  </h4>
+                  <h4 className="blog-title">A Beginner's Guide to Mathematical Thinking</h4>
                   <p className="blog-meta">Learning · 7 min read</p>
                   <button className="blog-link">Read more →</button>
                 </div>
@@ -88,22 +92,19 @@ function App() {
 
               <article className="blog-item">
                 <div className="blog-thumbnail">
-                  <img
-                    src="https://via.placeholder.com/80x60"
-                    alt="Inside Stamatics: Events, Talks, and More"
-                  />
+                  <img src="https://via.placeholder.com/80x60" alt="" />
                 </div>
                 <div className="blog-info">
-                  <h4 className="blog-title">
-                    Inside Stamatics: Events, Talks, and More
-                  </h4>
+                  <h4 className="blog-title">Inside Stamatics: Events, Talks, and More</h4>
                   <p className="blog-meta">Campus · 6 min read</p>
                   <button className="blog-link">Read more →</button>
                 </div>
               </article>
+
             </div>
           </div>
         </section>
+
       </main>
 
       {/* SCROLL ARROW */}
