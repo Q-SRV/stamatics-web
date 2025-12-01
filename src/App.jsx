@@ -7,49 +7,52 @@ import "./App.css";
 function App() {
   const aboutRef = useRef(null);
   const heroRef = useRef(null);
-  const hasAutoScrolledRef = useRef(false);
 
   const [showAbout, setShowAbout] = useState(false);
+  const autoScrollingRef = useRef(false);
 
   const scrollToAbout = () => {
-    if (aboutRef.current) {
-      aboutRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (!aboutRef.current) return;
+    autoScrollingRef.current = true;
+    aboutRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    // Unlock auto scroll after some time (enough for smooth scroll & animation)
+    setTimeout(() => {
+      autoScrollingRef.current = false;
+    }, 1000);
   };
 
   const handleAboutClick = (e) => {
     e.preventDefault();
-    hasAutoScrolledRef.current = true;
     setShowAbout(true);
     scrollToAbout();
   };
 
   useEffect(() => {
     const handleScroll = () => {
+      if (autoScrollingRef.current) return; // don't react while auto-scrolling
       if (!aboutRef.current) return;
 
       const rect = aboutRef.current.getBoundingClientRect();
       const triggerPoint = window.innerHeight * 0.65;
 
       if (rect.top < triggerPoint) {
-        // User has scrolled far enough: blur hero, show about
-        setShowAbout(true);
-
-        // Snap to About section *once* automatically
-        if (!hasAutoScrolledRef.current) {
-          hasAutoScrolledRef.current = true;
+        // User has scrolled far enough: blur hero & show about, then auto-scroll
+        if (!showAbout) {
+          setShowAbout(true);
           scrollToAbout();
         }
       } else {
-        // Back above threshold: show hero again
-        setShowAbout(false);
+        // Above threshold: show hero again
+        if (showAbout) {
+          setShowAbout(false);
+        }
       }
     };
 
     handleScroll(); // run once on mount
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [showAbout]);
 
   return (
     <div className="page-root">
