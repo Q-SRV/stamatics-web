@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   const aboutRef = useRef(null);
   const autoScrollingRef = useRef(false);
-  const hasSnappedRef = useRef(false); // prevent repeated snapping
+  const lastScrollYRef = useRef(0);
 
   const smoothScrollTo = (targetY, duration = 800) => {
     const startY = window.scrollY;
@@ -41,12 +41,11 @@ function App() {
     if (!aboutRef.current) return;
     const targetY =
       aboutRef.current.getBoundingClientRect().top + window.scrollY;
-    smoothScrollTo(targetY, 800); // 0.8s smooth scroll
+    smoothScrollTo(targetY, 800);
   };
 
   const handleAboutClick = (e) => {
     e.preventDefault();
-    hasSnappedRef.current = true; // we've already snapped
     scrollToAbout();
   };
 
@@ -55,12 +54,15 @@ function App() {
       if (autoScrollingRef.current) return;
       if (!aboutRef.current) return;
 
+      const currentY = window.scrollY;
+      const scrollingDown = currentY > lastScrollYRef.current;
+      lastScrollYRef.current = currentY;
+
       const rect = aboutRef.current.getBoundingClientRect();
       const triggerPoint = window.innerHeight * 0.65;
 
-      // Only auto-snap ONCE when scrolling down the first time
-      if (!hasSnappedRef.current && rect.top < triggerPoint) {
-        hasSnappedRef.current = true;
+      // Only auto-scroll when scrolling down and About section is approaching
+      if (scrollingDown && rect.top < triggerPoint && rect.top > 0) {
         scrollToAbout();
       }
     };
