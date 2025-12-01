@@ -116,7 +116,8 @@ body {
   color: var(--text-main);
   text-decoration: none;
   cursor: pointer;
-  position: relative;
+  background: none;
+  border: none;
 }
 
 .top-right-nav > a:hover,
@@ -129,7 +130,7 @@ body {
   position: relative;
 }
 
-/* DROPDOWN MENU – HIDDEN STATE */
+/* DROPDOWN MENU – BASE STATE (HIDDEN) */
 .dropdown-menu {
   position: absolute;
   top: 120%;
@@ -151,15 +152,15 @@ body {
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 }
 
-/* SHOW + FADE IN ON HOVER */
-.dropdown:hover .dropdown-menu {
+/* OPEN STATE (CLICKED) */
+.dropdown.open .dropdown-menu {
   opacity: 1;
   transform: translateY(0);
   visibility: visible;
   pointer-events: auto;
 }
 
-/* DROPDOWN MENU LINKS */
+/* DROPDOWN LINKS */
 .dropdown-menu a {
   font-weight: 600;
   padding: 10px 18px;
@@ -186,7 +187,7 @@ body {
   align-items: center;
 }
 
-/* LEFT TEXT */
+/* LEFT HERO TEXT */
 .hero-left {
   max-width: 640px;
 }
