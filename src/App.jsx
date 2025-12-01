@@ -1,9 +1,40 @@
 // src/App.jsx
+import { useEffect, useRef, useState } from "react";
 import bgImage from "./assets/home_background.jpg";
 import logo from "./assets/logo.png";
 import "./App.css";
 
 function App() {
+  const aboutRef = useRef(null);
+  const heroRef = useRef(null);
+
+  const [showAbout, setShowAbout] = useState(false);
+
+  const handleAboutClick = (e) => {
+    e.preventDefault();
+    if (aboutRef.current) {
+      aboutRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!aboutRef.current) return;
+      const rect = aboutRef.current.getBoundingClientRect();
+      const triggerPoint = window.innerHeight * 0.7;
+
+      if (rect.top < triggerPoint) {
+        setShowAbout(true);
+      } else {
+        setShowAbout(false);
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div
       className="hero-root"
@@ -25,7 +56,9 @@ function App() {
 
           {/* RIGHT NAVIGATION LINKS + HOVER DROPDOWN */}
           <nav className="nav-links top-right-nav">
-            <a href="#about">Who We Are</a>
+            <a href="#about" onClick={handleAboutClick}>
+              About Us
+            </a>
 
             {/* COMPETITIONS DROPDOWN */}
             <div className="dropdown">
@@ -47,7 +80,10 @@ function App() {
       </header>
 
       {/* MAIN HERO CONTENT (TOP SECTION) */}
-      <main className="hero-content">
+      <main
+        className={`hero-content ${showAbout ? "hero-hidden" : ""}`}
+        ref={heroRef}
+      >
         {/* LEFT HERO TEXT */}
         <section className="hero-left">
           <h1 className="hero-title">Stamatics IIT Kanpur</h1>
@@ -116,8 +152,12 @@ function App() {
         </section>
       </main>
 
-      {/* ABOUT US SECTION (SCROLL DOWN) */}
-      <section className="about-section" id="about">
+      {/* ABOUT US SECTION (FULL-PAGE AFTER SCROLL) */}
+      <section
+        className={`about-section ${showAbout ? "about-visible" : ""}`}
+        id="about"
+        ref={aboutRef}
+      >
         <div className="about-inner">
           <h2 className="about-title">About Us</h2>
           <p className="about-text">
@@ -155,7 +195,7 @@ function App() {
         </div>
       </section>
 
-      {/* SCROLL ARROW */}
+      {/* SCROLL ARROW (OPTIONAL – POINTS DOWN FROM HERO) */}
       <div className="scroll-indicator">
         <span className="scroll-arrow">↓</span>
       </div>
