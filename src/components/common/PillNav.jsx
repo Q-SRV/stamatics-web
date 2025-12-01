@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import "./PillNav.css";
+import { useTheme } from "../../context/ThemeContext";
 
 const PillNav = ({
   logo,
@@ -17,6 +18,7 @@ const PillNav = ({
   onMobileMenuClick,
   initialLoadAnimation = true,
 }) => {
+  const { theme, toggleTheme } = useTheme();
   const resolvedPillTextColor = pillTextColor ?? baseColor;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const circleRefs = useRef([]);
@@ -159,10 +161,11 @@ const PillNav = ({
     const img = logoImgRef.current;
     if (!img) return;
     logoTweenRef.current?.kill();
-    gsap.set(img, { rotate: 0 });
+    gsap.set(img, { rotate: 0, scale: 1 });
     logoTweenRef.current = gsap.to(img, {
       rotate: 360,
-      duration: 0.2,
+      scale: 1.1,
+      duration: 0.35,
       ease,
       overwrite: "auto",
     });
@@ -243,32 +246,19 @@ const PillNav = ({
         aria-label="Primary"
         style={cssVars}
       >
-        {isRouterLink(items?.[0]?.href) ? (
-          <Link
-            className="pill-logo"
-            to={items[0].href}
-            aria-label="Home"
-            onMouseEnter={handleLogoEnter}
-            role="menuitem"
-            ref={(el) => {
-              logoRef.current = el;
-            }}
-          >
-            <img src={logo} alt={logoAlt} ref={logoImgRef} />
-          </Link>
-        ) : (
-          <a
-            className="pill-logo"
-            href={items?.[0]?.href || "#"}
-            aria-label="Home"
-            onMouseEnter={handleLogoEnter}
-            ref={(el) => {
-              logoRef.current = el;
-            }}
-          >
-            <img src={logo} alt={logoAlt} ref={logoImgRef} />
-          </a>
-        )}
+        <button
+          className={`pill-logo theme-toggle ${theme}`}
+          aria-label="Toggle theme"
+          onClick={toggleTheme}
+          onMouseEnter={handleLogoEnter}
+          ref={(el) => {
+            logoRef.current = el;
+          }}
+        >
+          <span ref={logoImgRef} className="theme-icon">
+            {theme === "light" ? "🌙" : "☀️"}
+          </span>
+        </button>
 
         <div className="pill-nav-items desktop-only" ref={navItemsRef}>
           <ul className="pill-list" role="menubar">
