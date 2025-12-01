@@ -23,11 +23,11 @@ function App() {
             </div>
           </div>
 
-          {/* RIGHT NAVIGATION LINKS WITH HOVER DROPDOWN */}
+          {/* RIGHT NAVIGATION LINKS + HOVER DROPDOWN */}
           <nav className="nav-links top-right-nav">
             <a href="#who">Who We Are</a>
 
-            {/* COMPETITIONS DROPDOWN (HOVER) */}
+            {/* COMPETITIONS DROPDOWN */}
             <div className="dropdown">
               <span className="dropdown-label">Competitions ▾</span>
 
@@ -49,7 +49,7 @@ function App() {
       {/* MAIN HERO CONTENT */}
       <main className="hero-content">
         {/* LEFT HERO TEXT */}
-        <section className="hero-left">
+        <section className="hero-left" id="who">
           <h1 className="hero-title">Stamatics IIT Kanpur</h1>
           <p className="hero-subtitle">
             The destination for students who seek to explore Mathematics,
@@ -59,7 +59,7 @@ function App() {
         </section>
 
         {/* RIGHT BLOGS PANEL */}
-        <section className="hero-right">
+        <section className="hero-right" id="blogs">
           <div className="newsletter-card">
             <h3 className="newsletter-title">Latest Blogs</h3>
 
