@@ -30,7 +30,7 @@ body {
   color: var(--text-main);
 }
 
-/* PAGE ROOT (BLACK BACKGROUND) */
+/* PAGE ROOT (BLACK BACKGROUND BEHIND EVERYTHING) */
 .page-root {
   min-height: 100vh;
   background-color: #000000;
@@ -41,7 +41,7 @@ body {
   position: relative;
   min-height: 100vh;
   width: 100%;
-  background-size: contain;        /* reduces stretching & pixelation */
+  background-size: contain;        /* avoid over-stretch to reduce pixelation */
   background-position: center top; /* anchor at top center */
   background-repeat: no-repeat;
   color: var(--text-main);
@@ -140,8 +140,8 @@ body {
 /* DROPDOWN MENU – INSTANT SHOW/HIDE */
 .dropdown-menu {
   position: absolute;
-  top: 110%;  /* directly below “Competitions” */
-  left: 0;    /* aligned under label */
+  top: 110%;
+  left: 0;
   background: rgba(0, 0, 0, 0.92);
   backdrop-filter: blur(12px);
   border-radius: 8px;
@@ -394,7 +394,7 @@ body {
     transform: translateY(0);
   }
   50% {
-  transform: translateY(6px);
+    transform: translateY(6px);
   }
 }
 
