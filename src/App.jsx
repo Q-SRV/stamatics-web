@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
@@ -10,10 +11,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* Add more routes later, e.g.:
-        <Route path="/about" element={<About />} />
-        <Route path="/competitions" element={<Competitions />} />
-        */}
+        <Route path="/contact" element={<Contact />} />
+        {/* later: /about, /competitions, /blogs, /team, etc. */}
       </Routes>
     </div>
   );
