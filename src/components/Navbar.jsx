@@ -22,7 +22,7 @@ function Navbar() {
         {/* RIGHT NAVIGATION */}
         <nav className="nav-links top-right-nav">
 
-          {/* ABOUT US (scrolls within Home.jsx) */}
+          {/* ABOUT US */}
           <a href="/#about" className="nav-link">
             About Us
           </a>
@@ -47,12 +47,12 @@ function Navbar() {
             </div>
           </div>
 
-          {/* BLOGS — goes nowhere yet, but ready for routing */}
-          <NavLink to="/" className={navLinkClass}>
+          {/* BLOGS — FIXED: Now points to /blogs */}
+          <NavLink to="/blogs" className={navLinkClass}>
             Blogs
           </NavLink>
 
-          {/* TEAM — goes nowhere yet */}
+          {/* TEAM — Still points to Home for now */}
           <NavLink to="/" className={navLinkClass}>
             Our Team
           </NavLink>

@@ -4,6 +4,8 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
+import BlogReader from "./pages/BlogReader";
+import Blogs from "./pages/Blogs";  // <--- NEW: Import the page
 
 function App() {
   return (
@@ -12,7 +14,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
-        {/* later: /about, /competitions, /blogs, /team, etc. */}
+        
+        {/* NEW: The main list of blogs */}
+        <Route path="/blogs" element={<Blogs />} />
+
+        {/* The reader for a specific blog */}
+        <Route path="/blogs/:id" element={<BlogReader />} />
       </Routes>
     </div>
   );
