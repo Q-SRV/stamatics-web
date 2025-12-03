@@ -1,56 +1,78 @@
 // src/pages/Mathemania.jsx
-import { useState } from "react";
+import React, { useState } from "react";
 
 function Mathemania() {
+  const [formData, setFormData] = useState({
+    teamName: "",
+    institute: "",
+    teamLeader: "",
+    email: "",
+    contactNumber: "",
+    member2Name: "",
+    member2Email: "",
+    member3Name: "",
+    member3Email: "",
+    member4Name: "",
+    member4Email: ""
+  });
+
   const [submitting, setSubmitting] = useState(false);
+
+  // Same style as Contact: handleChange updates formData by name
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (submitting) return;
 
-    const form = e.target;
-
-    const payload = {
-      teamName: form.teamName.value.trim(),
-      institute: form.institute.value.trim(),
-      teamLeader: form.teamLeader.value.trim(),
-      email: form.leaderEmail.value.trim(),
-      contactNumber: form.contactNumber.value.trim(),
-      member2Name: form.member2.value.trim(),
-      member2Email: form.member2Email.value.trim(),
-      member3Name: form.member3.value.trim(),
-      member3Email: form.member3Email.value.trim(),
-      member4Name: form.member4.value.trim(),
-      member4Email: form.member4Email.value.trim(),
-    };
-
-    // Basic team name validation (Roman characters, digits, spaces, underscores)
+    // Team name validation (Roman characters, digits, spaces, underscores)
     const teamNamePattern = /^[A-Za-z0-9_ ]+$/;
-    if (!teamNamePattern.test(payload.teamName)) {
+    if (!teamNamePattern.test(formData.teamName.trim())) {
       alert(
         "Team name can only contain letters, numbers, spaces, and underscores. No emojis or special symbols."
       );
       return;
     }
 
+    setSubmitting(true);
+
+    const GOOGLE_SCRIPT_URL =
+      "https://script.google.com/macros/s/AKfycbyBmUZF4zRc1Ja8lqr0mF4kDmSO-ObQLRtmwCMObAdYHlKwzvcYYU4jz3x5IYT6T5-_PQ/exec";
+
     try {
-      setSubmitting(true);
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // same as Contact.jsx
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
 
-      await fetch(
-        "https://script.google.com/macros/s/AKfycbyBmUZF4zRc1Ja8lqr0mF4kDmSO-ObQLRtmwCMObAdYHlKwzvcYYU4jz3x5IYT6T5-_PQ/exec",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
+      // no-cors => we can't read response; assume success if no error thrown
       alert("Registration submitted! Your response has been recorded.");
-      form.reset();
-    } catch (err) {
-      console.error(err);
+
+      setFormData({
+        teamName: "",
+        institute: "",
+        teamLeader: "",
+        email: "",
+        contactNumber: "",
+        member2Name: "",
+        member2Email: "",
+        member3Name: "",
+        member3Email: "",
+        member4Name: "",
+        member4Email: ""
+      });
+    } catch (error) {
+      console.error("Mathemania submit error:", error);
       alert(
         "An error occurred while submitting your registration. Please try again later."
       );
@@ -117,7 +139,7 @@ function Mathemania() {
             </p>
           </div>
 
-          {/* RIGHT: REGISTRATION FORM */}
+          {/* RIGHT: REGISTRATION FORM (looks unchanged, logic updated) */}
           <div className="mathemania-card">
             <h2 className="mathemania-card-title">
               Mathemania Registration Form
@@ -145,6 +167,8 @@ function Mathemania() {
                   pattern="[A-Za-z0-9_ ]+"
                   title="Use letters, numbers, spaces, and underscores only."
                   placeholder="Enter team name"
+                  value={formData.teamName}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -159,6 +183,8 @@ function Mathemania() {
                   type="text"
                   required
                   placeholder="Enter institute name"
+                  value={formData.institute}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -173,6 +199,8 @@ function Mathemania() {
                   type="text"
                   required
                   placeholder="Full name of team leader"
+                  value={formData.teamLeader}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -187,6 +215,13 @@ function Mathemania() {
                   type="email"
                   required
                   placeholder="leader@example.com"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      email: e.target.value
+                    }))
+                  }
                 />
               </div>
 
@@ -201,6 +236,8 @@ function Mathemania() {
                   type="tel"
                   required
                   placeholder="10-digit phone number"
+                  value={formData.contactNumber}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -210,9 +247,11 @@ function Mathemania() {
                   <label htmlFor="member2">Team Member 2</label>
                   <input
                     id="member2"
-                    name="member2"
+                    name="member2Name"
                     type="text"
                     placeholder="Name (optional)"
+                    value={formData.member2Name}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mathemania-field">
@@ -222,6 +261,8 @@ function Mathemania() {
                     name="member2Email"
                     type="email"
                     placeholder="member2@example.com"
+                    value={formData.member2Email}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -232,9 +273,11 @@ function Mathemania() {
                   <label htmlFor="member3">Team Member 3</label>
                   <input
                     id="member3"
-                    name="member3"
+                    name="member3Name"
                     type="text"
                     placeholder="Name (optional)"
+                    value={formData.member3Name}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mathemania-field">
@@ -244,6 +287,8 @@ function Mathemania() {
                     name="member3Email"
                     type="email"
                     placeholder="member3@example.com"
+                    value={formData.member3Email}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -254,9 +299,11 @@ function Mathemania() {
                   <label htmlFor="member4">Team Member 4</label>
                   <input
                     id="member4"
-                    name="member4"
+                    name="member4Name"
                     type="text"
                     placeholder="Name (optional)"
+                    value={formData.member4Name}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mathemania-field">
@@ -266,6 +313,8 @@ function Mathemania() {
                     name="member4Email"
                     type="email"
                     placeholder="member4@example.com"
+                    value={formData.member4Email}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
