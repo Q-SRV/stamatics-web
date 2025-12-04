@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 
-
 import bgImage from "../assets/home_background.jpg";
 import { blogs } from "../data/blogs";   // Import your blog data
 
@@ -36,7 +35,6 @@ function Home() {
               <h3 className="newsletter-title">Latest Blogs</h3>
 
               <div className="blog-list">
-                {/* Dynamically loop through the blogs from your data file */}
                 {blogs.map((blog) => (
                   <article className="blog-item" key={blog.id}>
                     <div className="blog-thumbnail">
@@ -50,7 +48,6 @@ function Home() {
                       <p className="blog-meta">
                         {blog.author} · {blog.date}
                       </p>
-                      {/* This Link allows proper navigation to the article */}
                       <Link to={`/blogs/${blog.id}`} className="blog-link">
                         Read more →
                       </Link>
@@ -62,7 +59,7 @@ function Home() {
           </section>
         </main>
 
-        {/* SCROLL ARROW (now static, no animation) */}
+        {/* SCROLL ARROW */}
         <div className="scroll-indicator">
           <span className="scroll-arrow">↓</span>
         </div>
@@ -88,6 +85,7 @@ function Home() {
                 culture on campus.
               </p>
             </div>
+
             <div className="about-card">
               <h3>Who We Are</h3>
               <p>
@@ -96,13 +94,8 @@ function Home() {
                 departments and years.
               </p>
             </div>
-            <div className="about-card">
-              <h3>Why Join</h3>
-              <p>
-                Meet like-minded peers, compete in challenging events, learn new
-                ideas, and contribute to a growing math community at IIT Kanpur.
-              </p>
-            </div>
+
+            {/* Removed the "Why Join" card */}
           </div>
         </div>
       </section>
