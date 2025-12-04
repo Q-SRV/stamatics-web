@@ -69,26 +69,18 @@ function Home() {
       <section className="about-section" id="about">
         <div className="about-inner">
           <h2 className="about-title">About Us</h2>
-          <p className="about-text">
-            Stamatics is a society of IIT Kanpur under the Department of Mathematics and Statistics. Throughout the year, Stamatics organises mathematical competitions, talks by various professors and students, workshops, and numerous other informal and formal sessions to guide students towards a fruitful life in the campus and outside.Aimed at shedding more light and inculcating more interest in Mathematics, as well as making it fun and enjoyable, Stamatics distributes its newsletter full of interesting stuff ranging from groundbreaking scientific research articles to academic guidance by seniors and professors in various fields. In a nutshell, Stamatics is a group of individuals who strive to put all the opportunities, interesting researches, fun puzzles and the guidance of seniors, out in the open for everyone in the campus.
-          </p>
-
           <div className="about-grid">
             <div className="about-card">
               <h3>What We Do</h3>
               <p>
-                From Integration Bee and Mathematica to Mathemania, we design
-                events that challenge, inspire, and build a strong problem-solving
-                culture on campus.
+                Throughout the year, Stamatics organises mathematical competitions, talks by various professors and students, workshops, and numerous other informal and formal sessions to guide students towards a fruitful life in the campus and outside. Aimed at shedding more light and inculcating more interest in Mathematics, as well as making it fun and enjoyable, Stamatics distributes its newsletter full of interesting stuff ranging from groundbreaking scientific research articles to academic guidance by seniors and professors in various fields.
               </p>
             </div>
 
             <div className="about-card">
               <h3>Who We Are</h3>
               <p>
-                A community of students who enjoy puzzles, proofs, probability,
-                and everything in between—open to enthusiasts from all
-                departments and years.
+                Stamatics is a society of IIT Kanpur under the Department of Mathematics and Statistics.  In a nutshell, Stamatics is a group of individuals who strive to put all the opportunities, interesting researches, fun puzzles and the guidance of seniors, out in the open for everyone in the campus.
               </p>
             </div>
 
