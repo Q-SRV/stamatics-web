@@ -110,16 +110,8 @@ function Mathemania() {
           <div className="mathemania-card">
             <h2 className="mathemania-card-title">Event Overview</h2>
             <p className="mathemania-text">
-              Mathemania is a multi-round competition that tests conceptual
-              understanding, speed, and creativity in mathematics and related
-              problem-solving. It is open to students across batches and
-              disciplines at IIT Kanpur.
+              Mathemania II is an engaging team-based mathematics competition designed to challenge participants through a curated set of eight high-level problems drawn from diverse areas of mathematics. The event encourages collaborative problem-solving, strategic thinking, and rigorous reasoning under time constraints. Each team works together to complete the full question set, applying logic, geometry, algebra, number theory, and inequality techniques to arrive at correct solutions.
             </p>
-            <ul className="mathemania-list">
-              <li>Individual and team-based rounds</li>
-              <li>Mixture of proof, puzzle, and numerical problems</li>
-              <li>Designed and curated by Stamatics members</li>
-            </ul>
 
             <h2 className="mathemania-card-title mathemania-subheading">
               Key Information
