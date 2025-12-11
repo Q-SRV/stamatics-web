@@ -3,21 +3,113 @@ import { useNavigate } from "react-router-dom";
 
 export default function MathemaniaAdmin() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   
-  // Mock data for display
-  const [registrations, setRegistrations] = useState([
-    { team: "Euler's Minions", leader: "Saurav Kumar", email: "s@test.com", inst: "IITK", status: "Paid" },
-    { team: "Limit Breakers", leader: "Ananya Gupta", email: "a@test.com", inst: "IITB", status: "Pending" },
-  ]);
+  // Data States
+  const [registrations, setRegistrations] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  // Upload States
+  const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+
+  // Announcement States (NEW)
+  const [announcement, setAnnouncement] = useState("");
+
+  // --- CONFIGURATION ---
+  // ⚠️ CRITICAL: PASTE YOUR NEW WEB APP URL HERE
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbypAkKF8AFwLmnvhD51elhdrWe_gubzspuuq5TnFRaeIrIqpbrdTqiDFnVfXEDLp5hL/exec"; 
+
+  // 1. Check Auth & Fetch Data on Load
   useEffect(() => {
-    if (!localStorage.getItem("admin_token")) navigate("/admin");
+    if (!localStorage.getItem("admin_token")) {
+      navigate("/admin");
+    } else {
+      fetchRegistrations();
+    }
   }, [navigate]);
+
+  // 2. Fetch Registrations Function
+  const fetchRegistrations = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=get_registrations`);
+      const data = await response.json();
+      setRegistrations(data);
+    } catch (error) {
+      console.error("Error fetching registrations:", error);
+      alert("Failed to load data. (If using localhost, try Incognito mode!)");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 3. File Upload Function (Updated: Checks for REAL success)
+  const handleUpload = async () => {
+    if (!file) return alert("Please choose a file first!");
+    
+    setUploading(true); 
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const base64Raw = reader.result.split(",")[1];
+
+      const payload = {
+        action: "upload_file",
+        fileName: file.name,
+        mimeType: file.type,
+        fileData: base64Raw,
+      };
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload),
+        });
+
+        // READ THE SERVER RESPONSE
+        const result = await response.json();
+
+        if (result.status === "success") {
+          alert("Real Success! File uploaded to Drive.");
+          setFile(null);
+          document.getElementById("fileInput").value = ""; 
+        } else {
+          // Show the ACTUAL error from Google
+          alert("Google Error: " + result.error);
+          console.error(result);
+        }
+
+      } catch (error) {
+        console.error("Upload error:", error);
+        alert("Network/Code Error: " + error.message);
+      }
+      setUploading(false);
+    };
+  };
+
+  // 4. Publish Announcement Function (NEW)
+  const handlePublish = async () => {
+    if (!announcement) return alert("Please type a message!");
+    
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "update_announcement", text: announcement }),
+      });
+      alert("Announcement Published!");
+      setAnnouncement("");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to publish update.");
+    }
+  };
 
   return (
     <div style={styles.page}>
       <div style={styles.container}>
+        
+        {/* HEADER */}
         <div style={styles.header}>
           <h1 style={styles.title}>Mathemania Admin</h1>
           <button onClick={() => navigate("/admin/dashboard")} style={styles.backBtn}>← Dashboard</button>
@@ -29,21 +121,38 @@ export default function MathemaniaAdmin() {
           <div style={styles.card}>
             <h3 style={styles.cardTitle}>Upload Materials</h3>
             <p style={styles.cardDesc}>Question papers & solutions (PDF)</p>
+            
             <div style={styles.fileWrapper}>
-              <input type="file" style={styles.fileInput} />
+              <input 
+                id="fileInput"
+                type="file" 
+                style={styles.fileInput} 
+                onChange={(e) => setFile(e.target.files[0])}
+              />
             </div>
-            <button style={styles.actionBtn}>Upload to Drive</button>
+
+            <button 
+              style={{...styles.actionBtn, opacity: uploading ? 0.7 : 1}} 
+              onClick={handleUpload}
+              disabled={uploading}
+            >
+              {uploading ? "Uploading..." : "Upload to Drive"}
+            </button>
           </div>
 
-          {/* Announcement Card */}
+          {/* Announcement Card (Now Working!) */}
           <div style={styles.card}>
             <h3 style={styles.cardTitle}>Announcements</h3>
             <p style={styles.cardDesc}>Update the event page marquee</p>
             <textarea 
               style={styles.textArea} 
               placeholder="Type update here..." 
+              value={announcement}
+              onChange={(e) => setAnnouncement(e.target.value)}
             />
-            <button style={styles.actionBtn}>Publish Update</button>
+            <button style={styles.actionBtn} onClick={handlePublish}>
+              Publish Update
+            </button>
           </div>
         </div>
 
@@ -51,7 +160,9 @@ export default function MathemaniaAdmin() {
         <div style={styles.tableCard}>
           <div style={styles.tableHeader}>
             <h3 style={styles.cardTitle}>Registrations</h3>
-            <button style={styles.refreshBtn}>↻ Refresh</button>
+            <button onClick={fetchRegistrations} style={styles.refreshBtn}>
+              {loading ? "Loading..." : "↻ Refresh Data"}
+            </button>
           </div>
           
           <div style={styles.tableWrapper}>
@@ -60,23 +171,33 @@ export default function MathemaniaAdmin() {
                 <tr style={styles.thRow}>
                   <th style={styles.th}>Team Name</th>
                   <th style={styles.th}>Leader</th>
+                  <th style={styles.th}>Email</th>
                   <th style={styles.th}>Institute</th>
                   <th style={styles.th}>Status</th>
                 </tr>
               </thead>
               <tbody>
-                {registrations.map((row, idx) => (
-                  <tr key={idx} style={idx % 2 === 0 ? styles.trEven : styles.trOdd}>
-                    <td style={styles.tdBold}>{row.team}</td>
-                    <td style={styles.td}>{row.leader}</td>
-                    <td style={styles.td}>{row.inst}</td>
-                    <td style={styles.td}>
-                      <span style={row.status === "Paid" ? styles.badgeGreen : styles.badgeYellow}>
-                        {row.status}
-                      </span>
+                {registrations.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" style={{...styles.td, textAlign: "center", padding: "30px"}}>
+                      {loading ? "Fetching data..." : "No registrations found yet."}
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  registrations.map((row, idx) => (
+                    <tr key={idx} style={idx % 2 === 0 ? styles.trEven : styles.trOdd}>
+                      <td style={styles.tdBold}>{row.team}</td>
+                      <td style={styles.td}>{row.leader}</td>
+                      <td style={styles.td}>{row.email}</td>
+                      <td style={styles.td}>{row.inst}</td>
+                      <td style={styles.td}>
+                        <span style={row.status === "Paid" ? styles.badgeGreen : styles.badgeYellow}>
+                          {row.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -87,6 +208,7 @@ export default function MathemaniaAdmin() {
   );
 }
 
+// Styles (Unchanged)
 const styles = {
   page: { minHeight: "100vh", background: "#020617", paddingTop: "100px", paddingBottom: "50px", color: "white" },
   container: { maxWidth: "1100px", margin: "0 auto", padding: "0 24px" },

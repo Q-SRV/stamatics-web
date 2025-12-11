@@ -63,7 +63,7 @@ function Mathemania() {
     setSubmitting(true);
 
     const GOOGLE_SCRIPT_URL =
-      "https://script.google.com/macros/s/AKfycbwv8yFFWikTCVSBpNaGtnYQEfCE_vmEK_J8cF1T_aF2avROc0y5Lfhak_sSKCx6FlQuzA/exec";
+      "https://script.google.com/macros/s/AKfycbypAkKF8AFwLmnvhD51elhdrWe_gubzspuuq5TnFRaeIrIqpbrdTqiDFnVfXEDLp5hL/exec";
 
     try {
       await fetch(GOOGLE_SCRIPT_URL, {

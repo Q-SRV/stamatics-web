@@ -23,7 +23,7 @@ export default function BlogAdmin() {
     return;
   }
 
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzWdwnoRrTY9P790xcwkglWhS1gU4D5zFR49ylL2LtGiTYFDHdhp3bdHb1D4hgaK5JV/exec"; 
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbypAkKF8AFwLmnvhD51elhdrWe_gubzspuuq5TnFRaeIrIqpbrdTqiDFnVfXEDLp5hL/exec"; 
 
   const payload = {
     action: "create_blog",
