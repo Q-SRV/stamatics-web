@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { GOOGLE_SCRIPT_URL } from "../config"; 
 
+import "../styles/pages/blogs.css"; // ← NEW
+
 function Blogs() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,9 +40,9 @@ function Blogs() {
   }, []);
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.header}>All Articles</h1>
-      <p style={styles.subHeader}>
+    <div className="blogs-page">
+      <h1 className="blogs-header">All Articles</h1>
+      <p className="blogs-subheader">
         Explore our latest thoughts on Mathematics, Statistics, and logic.
       </p>
 
@@ -50,7 +52,7 @@ function Blogs() {
           <p style={{ color: "#aaa", fontSize: "1.2rem" }}>Loading articles...</p>
         </div>
       ) : (
-        <div style={styles.grid}>
+        <div className="blogs-grid">
           {blogs.length === 0 ? (
             <p style={{ color: "#888", gridColumn: "1 / -1", textAlign: "center" }}>
               No articles found.
@@ -66,7 +68,7 @@ function Blogs() {
                   <p style={styles.meta}>
                     {blog.author} • {blog.date ? new Date(blog.date).toLocaleDateString() : "Recent"}
                   </p>
-                  <Link to={`/blogs/${blog.id}`} style={styles.link}>
+                  <Link to={`/blogs/${blog.id}`} className="blogs-link">
                     Read Article →
                   </Link>
                 </div>

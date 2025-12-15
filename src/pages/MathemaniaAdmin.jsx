@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GOOGLE_SCRIPT_URL } from "../config";
 
+import "../styles/pages/mathemania-admin.css"; // ← NEW
+
 export default function MathemaniaAdmin() {
   const navigate = useNavigate();
   
@@ -79,12 +81,12 @@ export default function MathemaniaAdmin() {
           <div style={styles.tableWrapper}>
             <table style={styles.table}>
               <thead>
-                <tr style={styles.thRow}>
-                  <th style={styles.th}>Team Name</th>
-                  <th style={styles.th}>Leader</th>
-                  <th style={styles.th}>Email</th>
-                  <th style={styles.th}>Institute</th>
-                  <th style={styles.th}>Status</th>
+                <tr className="mathemania-admin-th-row">
+                  <th className="mathemania-admin-th">Team Name</th>
+                  <th className="mathemania-admin-th">Leader</th>
+                  <th className="mathemania-admin-th">Email</th>
+                  <th className="mathemania-admin-th">Institute</th>
+                  <th className="mathemania-admin-th">Status</th>
                 </tr>
               </thead>
               <tbody>

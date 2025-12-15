@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { GOOGLE_SCRIPT_URL } from "../config";
 
+import "../styles/pages/mathemania.css"; // ← ONLY ADDITION
+
 function Mathemania() {
   const [formData, setFormData] = useState({
     teamName: "", 

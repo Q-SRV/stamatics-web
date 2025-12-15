@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { GOOGLE_SCRIPT_URL } from "../config"; // Ensure this file exists as discussed before
 
+import "../styles/pages/contact.css"; // ← ONLY ADDITION
+
 function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -45,8 +47,6 @@ function Contact() {
 
       <div style={styles.formCard}>
         <form onSubmit={handleSubmit} style={styles.form}>
-          
-          {/* Name Input */}
           <div style={styles.inputGroup}>
             <label style={styles.label}>Name</label>
             <input
@@ -60,7 +60,6 @@ function Contact() {
             />
           </div>
 
-          {/* Email Input */}
           <div style={styles.inputGroup}>
             <label style={styles.label}>Email</label>
             <input
@@ -74,7 +73,6 @@ function Contact() {
             />
           </div>
 
-          {/* Message Input */}
           <div style={styles.inputGroup}>
             <label style={styles.label}>Message</label>
             <textarea

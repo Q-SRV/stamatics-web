@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import "katex/dist/katex.min.css"; 
+import "katex/dist/katex.min.css";
 import { useNavigate } from "react-router-dom";
 import { GOOGLE_SCRIPT_URL } from "../config";
+
+import "../styles/pages/blog-admin.css"; // ← NEW
 
 const initialBlog = { title: "", author: "", content: "# New Post\n\nStart writing..." };
 

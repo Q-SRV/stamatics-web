@@ -38,31 +38,38 @@ function BlogReader() {
 
   if (loading) {
     return (
-      <div style={styles.container}>
-        <div style={{...styles.header, border: "none"}}>Loading article...</div>
+      <div className="blog-reader-container">
+        <div className="blog-reader-header blog-reader-header--no-border">
+          Loading article...
+        </div>
       </div>
     );
   }
 
   if (!blog) {
     return (
-      <div style={styles.container}>
-        <h1 style={styles.title}>404</h1>
+      <div className="blog-reader-container">
+        <h1 className="blog-reader-title">404</h1>
         <p>Blog post not found.</p>
-        <Link to="/blogs" style={styles.backLink}>← Back to all blogs</Link>
+        <Link to="/blogs" className="blog-reader-back-link">
+          ← Back to all blogs
+        </Link>
       </div>
     );
   }
 
   return (
-    <div style={styles.container}>
-      <Link to="/blogs" style={styles.backLink}>← Back to All Articles</Link>
-      
+    <div className="blog-reader-container">
+      <Link to="/blogs" className="blog-reader-back-link">
+        ← Back to All Articles
+      </Link>
+
       {/* Header */}
-      <div style={styles.header}>
-        <h1 style={styles.title}>{blog.title}</h1>
-        <p style={styles.meta}>
-          {blog.author} • {blog.date ? new Date(blog.date).toLocaleDateString() : ""}
+      <div className="blog-reader-header">
+        <h1 className="blog-reader-title">{blog.title}</h1>
+        <p className="blog-reader-meta">
+          {blog.author} •{" "}
+          {blog.date ? new Date(blog.date).toLocaleDateString() : ""}
         </p>
       </div>
 
@@ -81,43 +88,5 @@ function BlogReader() {
     </div>
   );
 }
-
-const styles = {
-  container: {
-    maxWidth: "800px",
-    margin: "0 auto",
-    padding: "120px 20px 60px",
-    color: "#e0e0e0",
-    minHeight: "100vh",
-  },
-  backLink: {
-    color: "#7b4bff",
-    textDecoration: "none",
-    marginBottom: "30px",
-    display: "inline-block",
-    fontWeight: "600",
-  },
-  header: {
-    borderBottom: "1px solid #333",
-    paddingBottom: "20px",
-    marginBottom: "30px",
-  },
-  title: {
-    fontSize: "2.5rem",
-    marginBottom: "10px",
-    color: "#fff",
-    lineHeight: "1.2",
-    fontWeight: "bold",
-  },
-  meta: {
-    color: "#888",
-    fontSize: "1rem",
-  },
-  content: {
-    fontSize: "1.15rem",
-    lineHeight: "1.8",
-    color: "#d1d5db",
-  }
-};
 
 export default BlogReader;
