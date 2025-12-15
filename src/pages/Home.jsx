@@ -30,9 +30,13 @@ function Home() {
 
           <section className="hero-right" />
         </main>
+
+        <div className="scroll-indicator">
+          <span className="scroll-arrow">↓</span>
+        </div>
       </div>
 
-      {/* ABOUT US SECTION (VISIBLE WITHOUT SCROLL) */}
+      {/* ABOUT US SECTION (FULL WIDTH BELOW HERO) */}
       <section className="about-full">
         <div className="about-full-inner">
           <h2 className="about-full-title">About Us</h2>
