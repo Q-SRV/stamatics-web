@@ -16,7 +16,7 @@ function Home() {
         <div className="hero-overlay" />
 
         <main className="hero-content">
-          {/* LEFT SIDE — CENTERED VERTICALLY */}
+          {/* LEFT SIDE — CENTERED LIKE BEFORE */}
           <section className="hero-left">
             <h1 className="hero-title">
               <span>Stamatics</span>
@@ -28,19 +28,33 @@ function Home() {
               Bring problems. Leave with answers.
             </p>
 
-            {/* COMPACT ABOUT BOX */}
-            <div className="about-card about-card-compact">
+            {/* ABOUT US — FULL WIDTH BOX */}
+            <div className="about-card about-card-wide">
               <h3>About Us</h3>
               <p>
-                Stamatics is the mathematics society of IIT Kanpur. We organise
-                competitions, talks, workshops, and problem-solving sessions
-                aimed at fostering curiosity, mathematical thinking, and
-                collaboration across campus.
+                Stamatics is the official Mathematics and Statistics society of
+                IIT Kanpur. The society serves as a platform for students who
+                enjoy mathematical thinking, logical reasoning, and problem
+                solving beyond the classroom curriculum.
+              </p>
+              <p>
+                Throughout the academic year, Stamatics organises a wide range
+                of activities including mathematical competitions, lectures by
+                professors and researchers, peer-led workshops, problem-solving
+                sessions, and informal discussions. These initiatives aim to
+                cultivate curiosity, collaboration, and a deeper appreciation
+                for mathematics among students from all disciplines.
+              </p>
+              <p>
+                By connecting students with seniors, faculty members, and
+                research opportunities, Stamatics strives to make mathematics
+                accessible, engaging, and intellectually rewarding for the
+                entire campus community.
               </p>
             </div>
           </section>
 
-          {/* RIGHT SIDE — EMPTY (kept for layout balance) */}
+          {/* RIGHT SIDE — EMPTY (layout balance) */}
           <section className="hero-right" />
         </main>
 
