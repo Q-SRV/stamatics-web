@@ -149,6 +149,7 @@
 
 .contact-field textarea {
   resize: none;
+  min-height: 200px;
 }
 
 /* ACTIONS */
