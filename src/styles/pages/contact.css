@@ -121,12 +121,6 @@
   gap: 22px;
 }
 
-.contact-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
 .contact-field {
   display: flex;
   flex-direction: column;
